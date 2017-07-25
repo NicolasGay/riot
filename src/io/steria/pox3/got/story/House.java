@@ -13,9 +13,10 @@ public class House {
 	// Bidirection, argh
 	Player player ;
 	
-	public House(String pName, String pWords) {  //constructeur pour HouseFactory
+	public House( String pName, String pWords) {  //constructeur pour HouseFactory
 		this.name = pName;
 		this.words = pWords;
+	
 	}
 
 	List<Domain> getDomains(){

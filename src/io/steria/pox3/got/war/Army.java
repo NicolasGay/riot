@@ -6,13 +6,14 @@ import io.steria.pox3.game.RoundState;
 import io.steria.pox3.got.story.House;
 import io.steria.pox3.got.tile.Domain;
 import io.steria.pox3.got.tile.Tile;
+import io.steria.pox3.got.tile.World;
 
 public class Army implements IArmy {
 
 	int readyTroops;
 	int movedTroops;
 	House house;
-	Domain position;
+	Tile position;
 
 	public Army(int troops, House house, Domain position) {
 		this.readyTroops = troops;
@@ -75,14 +76,33 @@ public class Army implements IArmy {
 
 	@Override
 	public void move(int troops, Direction direction) {
-		// TODO Auto-generated method stub
 		
+		if(troops>this.readyTroops)
+			throw new IllegalArgumentException();
+		
+		World world = this.getPlayer().getGame().getWorld();
+		
+		if(troops == this.readyTroops){
+			//we move everything
+			Tile destination =world.neighbour(this.getPosition(), direction).orElseThrow(()->new IllegalArgumentException());
+			
+			if(world.allowMove(this.position, destination, this.getHouse().hasBoat())){
+				
+				this.position = destination;
+				this.getPlayer().decreaseMoves();
+				this.readyTroops=0;
+			}
+			else
+				throw new IllegalStateException("You don't have a boat !");
+		}
+		
+		//TODO Nicolas GOT-2342 : case where we split Army
 	}
 
 
 	@Override
 	public void move(Direction direction) {
-		this.getPlayer().decreaseMoves();
+		this.move(this.readyTroops, direction);
 		
 	}
 

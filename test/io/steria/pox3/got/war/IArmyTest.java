@@ -6,6 +6,8 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.steria.pox3.game.Game;
+import io.steria.pox3.game.Player;
 import io.steria.pox3.got.story.House;
 import io.steria.pox3.got.story.HouseFactory;
 import io.steria.pox3.got.tile.Domain;
@@ -22,12 +24,17 @@ public class IArmyTest {
 	HouseFactory factory = new HouseFactory();
 	House stark = factory.getStark();
 	House arryn = factory.getArryn();
-
+	House lannister = factory.getLannister();
+	Player a,b;
+	Game game;
+	
 	@Before
 	public void setUp() throws Exception {
 
 		world = new World();
 		world.generate();
+		this.game = new Game(world);
+		
 		winterfell3 = (Domain) world.get(3, 2); // on caste a domain pour pas
 												// avoir de l'eaus
 		army = new Army(3, stark, winterfell3);
@@ -35,12 +42,17 @@ public class IArmyTest {
 
 		winterfell7 = (Domain) world.get(3, 3); // on caste a domain pour pas
 												// avoir de l'eaus
-		army = new Army(3, stark, winterfell7);
-		winterfell7.setArmy(army);
+		//army = new Army(3, stark, winterfell7);
+		//winterfell7.setArmy(army);
 
 		erye1 = (Domain) world.get(3, 3);
 		bigArmy = new Army(9, arryn, erye1);
 		erye1.setArmy(bigArmy);
+		
+		this.a = new Player(game,"Anne", lannister);
+		this.b = new Player(game,"Nicolas", stark);
+		lannister.setPlayer(a);
+		stark.setPlayer(b);
 	}
 
 	@Test
@@ -53,12 +65,12 @@ public class IArmyTest {
 	@Test
 	public void testMoveIntDomain() {
 		
-		
-		army.move(Direction.SOUTH);
-		assertEquals(3, army.getPosition().getX());
-		assertEquals(3, army.getPosition().getY());
-		assertEquals(0, winterfell3.getArmy().getReadyTroops());
-		assertEquals(3, winterfell7.getArmy().getMovedTroops());
+		army.move(2, Direction.SOUTH);
+        assertEquals(3, army.getPosition().getX());
+        assertEquals(3, army.getPosition().getY());
+        assertEquals(1, winterfell3.getArmy().getReadyTroops());
+        Domain winterfell7 = (Domain) world.get(3, 3);
+        assertEquals(2, winterfell7.getArmy().getMovedTroops());
 	}
 
 	@Test

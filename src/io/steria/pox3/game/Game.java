@@ -5,6 +5,7 @@ import java.util.List;
 
 import io.steria.pox3.got.story.House;
 import io.steria.pox3.got.story.HouseFactory;
+import io.steria.pox3.got.tile.World;
 import io.steria.pox3.objectives.ObjectiveCard;
 
 /**
@@ -16,7 +17,8 @@ import io.steria.pox3.objectives.ObjectiveCard;
 
 /////////////////////////////////////////////////////////////////////
 public class Game {
-
+	
+	World world;
 	List<Player> players = new ArrayList<>();
 	List<House> houses = new HouseFactory().getAllHouses();
 	List<House> availableHouses = new HouseFactory().getAllHouses();
@@ -24,7 +26,20 @@ public class Game {
 	// Au fur et à mesure qu'elles sont attribuées au Player,
 	// les autres Player ont moins de choix de House possible
 
+	
+	
+	
 	List<ObjectiveCard> cards;
+
+	public Game(World world) {
+		this.world = world;
+	}
+	
+
+	public World getWorld() {
+		return world;
+	}
+
 
 	List<Round> rounds = new ArrayList<>();
 

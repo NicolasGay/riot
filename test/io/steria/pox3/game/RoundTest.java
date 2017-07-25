@@ -25,13 +25,13 @@ public class RoundTest {
 		world.generate();
 		round = new Round();
 
-		this.game = new Game();
+		this.game = new Game(world);
 
 		HouseFactory factory = new HouseFactory();
 		this.stark = factory.getStark();
 		this.lannister = factory.getLannister();
-		this.a = new Player("Anne", lannister);
-		this.b = new Player("Nicolas", stark);
+		this.a = new Player(game,"Anne", lannister);
+		this.b = new Player(game,"Nicolas", stark);
 
 		a1 = new Army(2, stark, world.getWinterfell7());
 		a2 = new Army(2, stark, world.getMeereen3());

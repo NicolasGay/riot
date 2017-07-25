@@ -10,9 +10,10 @@ import io.steria.pox3.game.Game;
 import io.steria.pox3.game.Player;
 import io.steria.pox3.got.story.House;
 import io.steria.pox3.got.story.HouseFactory;
+import io.steria.pox3.got.tile.World;
 
 public class GameTest {
-
+	World world;
 	Game game;
 	Player anne;
 	Player nicolas;
@@ -22,7 +23,8 @@ public class GameTest {
 			// chaque test de GameTest
 	public void setUp() {
 		System.out.println("reinitialize new game");
-		this.game = new Game(); // le this sert à utiliser le "game" placé hors
+		world = new World();
+		this.game = new Game(world); // le this sert à utiliser le "game" placé hors
 								// scope et pas un "game" éventuellement placé
 								// comme paramètre de la fonction
 
@@ -31,8 +33,8 @@ public class GameTest {
 		// pas besoin de faire un new puisqu'on a créé l'objet au dessus
 		this.lannister = factory.getLannister();
 
-		this.anne = new Player("Anne", lannister);
-		this.nicolas = new Player("Nicolas", stark);
+		this.anne = new Player(game,"Anne", lannister);
+		this.nicolas = new Player(game,"Nicolas", stark);
 
 	}
 

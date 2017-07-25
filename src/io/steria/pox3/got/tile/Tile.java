@@ -37,5 +37,7 @@ public abstract class Tile {
 	public void setArmy(IArmy army) {
 		this.army = army;
 	}
+	
+	
 
 }

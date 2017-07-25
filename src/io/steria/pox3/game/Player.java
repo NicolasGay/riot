@@ -19,7 +19,8 @@ public class Player {
 	Game game;
 	Round currentRound;
 
-	public Player(String name, House house) {
+	public Player(Game game, String name, House house) {
+		this.game=game;
 		this.name = name;
 		this.house = house;
 		// bidrirection argh
@@ -52,5 +53,11 @@ public class Player {
 		this.moves--;
 
 	}
+
+	public Game getGame() {
+		return game;
+	}
+	
+	
 
 }
